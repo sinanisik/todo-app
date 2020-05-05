@@ -1,0 +1,34 @@
+.App {
+  text-align: center
+}
+
+
+.form-group {
+  margin: 15px 0;
+  font-size: 15px;
+  
+}
+
+.form-group input, select {
+  width: 200px;
+  height: 20px;
+  font-size: 15px;
+  padding: 10px;
+
+}
+
+
+.form-group input[type="radio"] {
+  margin: 0;
+  padding: 0;
+  width: 20px;
+}
+
+button {
+  padding: 10px;
+  background-color: rebeccapurple;
+  width: 200px;
+  color: #fff;
+  font-size: 15px;
+  box-shadow: none;
+}
