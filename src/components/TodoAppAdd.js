@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addTodo } from '../redux/actions';
 import { Formik } from 'formik';
+import * as Yup from 'yup';
+
+const todoAddValidation = Yup.object().shape({
+    title: Yup.string().required("Title girmeden todo ekleyemezsiniz").max(10, "10 karakterden fazla giremezsiniz"),
+    description: Yup.string().min(5, "5 karakterden az giremezsiniz")
+});
 
 class TodoAppAdd extends Component {
 
@@ -15,8 +21,9 @@ class TodoAppAdd extends Component {
                         completed: false,
                         priority: "high"
                     }}
+                    validationSchema={todoAddValidation}
 
-                    onSubmit={(values, {resetForm})  => {
+                    onSubmit={(values, { resetForm }) => {
                         this.props.addTodo(values);
                         resetForm({})
                     }}
@@ -31,7 +38,8 @@ class TodoAppAdd extends Component {
                         isSubmitting,
                         setFieldValue
                         /* and other goodies */
-                    }) => (
+                    }) => {
+                        return (
                             <form onSubmit={handleSubmit}>
                                 <div className="form-group">
                                     <input
@@ -41,6 +49,11 @@ class TodoAppAdd extends Component {
                                         value={values.title}
                                         onChange={handleChange}
                                     />
+                                    <div>
+                                        {
+                                            errors.title && <h4>{errors.title}</h4>
+                                        }
+                                    </div>
                                 </div>
                                 <div className="form-group">
                                     <input
@@ -51,7 +64,11 @@ class TodoAppAdd extends Component {
                                         onChange={handleChange}
                                     />
                                 </div>
-
+                                <div>
+                                    {
+                                        errors.description && <h4>{errors.description}</h4>
+                                    }
+                                </div>
 
                                 <div className="form-group">
                                     <input
@@ -88,7 +105,8 @@ class TodoAppAdd extends Component {
                                     <button type="submit">Todo Ekle</button>
                                 </div>
                             </form>
-                    )}
+                        )
+                    }}
                 </Formik>
 
             </div>
